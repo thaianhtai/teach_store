@@ -1,0 +1,273 @@
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 32px;
+  color: #333;
+  font-weight: bold;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+/* Container for the entire page */
+.account-management {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Table Styles */
+.account-table {
+  width: 100%;
+  margin-top: 40px;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden; /* Ensures rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.account-table th,
+.account-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.account-table th {
+  background-color: #007bff;
+  color: #fff;
+  font-size: 18px;
+}
+
+.account-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.account-table button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  margin-right: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.account-table button:hover {
+  background-color: #218838;
+}
+
+.account-table .edit-button {
+  background-color: #007bff;
+}
+
+.account-table .edit-button:hover {
+  background-color: #0056b3;
+}
+
+.account-table .delete-button {
+  background-color: #dc3545;
+}
+
+.account-table .delete-button:hover {
+  background-color: #c82333;
+}
+
+/* Button Focus Styles */
+button:focus, input:focus, select:focus {
+  outline: 3px solid #007bff; /* Blue outline for accessibility */
+  outline-offset: 2px;
+}
+
+/* Edit Form Styles */
+.edit-form {
+  margin-top: 40px;
+  padding: 25px;
+  background-color: #fafafa;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.edit-form .form-group {
+  margin-bottom: 20px;
+}
+
+.edit-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.edit-form input,
+.edit-form select {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+.edit-form input:focus,
+.edit-form select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.edit-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.edit-form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.edit-form button:hover {
+  background-color: #0056b3;
+}
+
+.edit-form .cancel-button {
+  background-color: #cccccc;
+  color: white;
+}
+
+.edit-form .cancel-button:hover {
+  background-color: #888888;
+}
+
+/* Add Button (Visible Before Form is Displayed) */
+.add-button {
+  background-color: #28a745; /* Màu xanh lá tươi sáng */
+  color: white;
+  font-size: 18px;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 50px; /* Viền bo tròn */
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  transition: all 0.3s ease-in-out; /* Hiệu ứng chuyển động mượt mà */
+  text-transform: uppercase; /* Chữ in hoa */
+  font-weight: bold; /* Chữ đậm */
+  letter-spacing: 1px; /* Khoảng cách giữa các chữ */
+}
+
+.account-table .add-button {
+  background-color: #007bff;
+}
+
+.account-table .add-button:hover {
+  background-color: #0056b3;
+}
+
+/* Hover Effects */
+.add-button:hover {
+  background-color: #218838; /* Màu xanh đậm hơn */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Đổ bóng mạnh hơn */
+  transform: translateY(-3px); /* Nâng nút lên khi hover */
+}
+
+/* Active Button State */
+.add-button:active {
+  background-color: #1e7e34; /* Màu xanh khi nhấn */
+  transform: translateY(2px); /* Giảm hiệu ứng nâng khi nhấn */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Bóng đổ nhỏ hơn khi nhấn */
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+  .account-management {
+    padding: 15px;
+  }
+
+  .account-table th,
+  .account-table td {
+    padding: 10px;
+  }
+
+  .account-table button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .edit-form input,
+  .edit-form select {
+    padding: 10px;
+  }
+
+  .edit-form button {
+    padding: 10px 15px;
+  }
+}
+
+/* Nút Add Account */
+.add-account-button {
+  background-color: #28a745; /* Màu xanh lá tươi sáng */
+  color: white;
+  font-size: 18px;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 50px; /* Viền bo tròn */
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  transition: all 0.3s ease-in-out; /* Hiệu ứng chuyển động mượt mà */
+  text-transform: uppercase; /* Chữ in hoa */
+  font-weight: bold; /* Chữ đậm */
+  letter-spacing: 1px; /* Khoảng cách giữa các chữ */
+  text-align: center;
+}
+
+/* Hiệu ứng hover */
+.add-account-button:hover {
+  background-color: #218838; /* Màu xanh đậm hơn */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Đổ bóng mạnh hơn */
+  transform: translateY(-3px); /* Nâng nút lên khi hover */
+}
+
+/* Hiệu ứng khi nhấn nút */
+.add-account-button:active {
+  background-color: #1e7e34; /* Màu xanh khi nhấn */
+  transform: translateY(2px); /* Giảm hiệu ứng nâng khi nhấn */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Bóng đổ nhỏ hơn khi nhấn */
+}

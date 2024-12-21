@@ -1,0 +1,142 @@
+/* Header Styles */
+.header {
+  background-color: #333;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #ff9800;
+  text-decoration: underline;
+}
+
+/* Dropdown Styles */
+.nav-links .dropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+.nav-links .dropdown span {
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.nav-links .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #444;
+  border: 1px solid #555;
+  border-radius: 4px;
+  list-style: none;
+  padding: 10px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.nav-links .dropdown-menu li {
+  padding: 8px 15px;
+  color: white;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+}
+
+.nav-links .dropdown-menu li:hover {
+  background-color: #555;
+}
+
+.nav-links .dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+}
+
+.footer a {
+  color: #ff9800;
+  text-decoration: none;
+  transition: text-decoration 0.3s ease;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer p {
+  margin: 0;
+}
+
+/* Slider Styles */
+.slider {
+  width: 80%; /* Slider chiếm 80% chiều rộng màn hình */
+  height: 10vh; /* Slider chiếm 40% chiều cao màn hình */
+  display: flex;
+  justify-content: center; /* Căn giữa ảnh ngang */
+  align-items: center; /* Căn giữa ảnh dọc */
+  overflow: hidden; /* Ẩn phần ảnh bị tràn */
+  position: relative;
+  margin: 20px auto; /* Căn giữa slider trên trang */
+  background-color: #f5f5f5; /* Màu nền cho slider */
+  border-radius: 10px; /* Bo góc slider */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bóng đổ nhẹ */
+}
+
+/* Căn chỉnh ảnh trong slider */
+.slider img {
+  width: auto; /* Giữ nguyên tỷ lệ chiều rộng */
+  height: 100%; /* Đặt chiều cao ảnh bằng chiều cao slider */
+  object-fit: contain; /* Căn chỉnh ảnh vừa khung mà không bị cắt */
+  transition: transform 0.5s ease-in-out; /* Hiệu ứng hover mượt */
+  border-radius: 10px; /* Bo góc ảnh */
+}
+
+.slider img:hover {
+  transform: scale(1.05); /* Phóng to nhẹ khi hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .slider {
+    width: 80%; /* Slider chiếm 90% chiều rộng màn hình trên thiết bị nhỏ */
+    height: 10vh; /* Slider chiếm 30% chiều cao màn hình */
+  }
+
+  .slider img {
+    object-fit: contain; /* Hiển thị toàn bộ ảnh mà không bị cắt */
+  }
+}
