@@ -8,6 +8,7 @@ import Layout from './components/client/partials/Layout';
 import AdminLayout from './components/admin/partials/AdminLayout';
 import Dashboard from './components/admin/Dashboard/Dashboard';
 import AccountManagement from './components/admin/AccountManagement/AccountManagement'; // Import AccountManagement
+import ProductManagement from './components/admin/ProductManagement/ProductManagement';
 import { AuthProvider, useAuth } from './components/client/auth/AuthContext';
 import Cart from './components/client/cart/CartPage';
 import { AlertProvider } from './components/client/partials/Alert';
@@ -87,6 +88,7 @@ const App = () => {
             >
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="account-management" element={<AccountManagement />} />
+              <Route path="product-management" element={<ProductManagement />} />
             </Route>
           </Routes>
         </Router>

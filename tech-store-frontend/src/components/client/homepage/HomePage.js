@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Layout from '../partials/Layout';
 import Slider from '../partials/ClientSlider';
 import { useAlert } from '../partials/Alert'; // Import Alert
 import './HomePage.css';

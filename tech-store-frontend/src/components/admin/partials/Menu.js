@@ -23,6 +23,14 @@ const Menu = () => {
             <span className="icon">🙍‍♂️</span> Account Management
           </NavLink>
         </li>
+        <li className="menu-item">
+          <NavLink
+            to="/auth/product-management"
+            className={({ isActive }) => (isActive ? 'active-link' : '')}
+          >
+            <span className="icon">📦</span> Product Management
+          </NavLink>
+        </li>
       </ul>
       <div className="menu-footer">© 2024 Your Company</div>
     </aside>

@@ -21,10 +21,10 @@ exports.addToCart = async (req, res) => {
     }
 
     await cart.save();
-    res.status(200).json({ message: 'Product added to cart.', cart });
+    res.status(200).json({ message: 'Sản phẩm đã được thêm vào giỏ hàng.', cart });
   } catch (err) {
-    console.error('Error adding to cart:', err.message);
-    res.status(500).json({ message: 'Internal server error.' });
+    console.error('Lỗi khi thêm sản phẩm vào giỏ hàng:', err.message);
+    res.status(500).json({ message: 'Lỗi khi thêm sản phẩm vào giỏ hàng. Vui lòng thử lại sau.' });
   }
 };
 
