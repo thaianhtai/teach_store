@@ -103,8 +103,8 @@
 
 /* Slider Styles */
 .slider {
-  width: 80%; /* Slider chiếm 80% chiều rộng màn hình */
-  height: 10vh; /* Slider chiếm 40% chiều cao màn hình */
+  width: 60%; /* Giảm chiều rộng slider xuống còn 60% */
+  height: 30vh; /* Giảm chiều cao slider xuống còn 30% chiều cao màn hình */
   display: flex;
   justify-content: center; /* Căn giữa ảnh ngang */
   align-items: center; /* Căn giữa ảnh dọc */
@@ -132,8 +132,8 @@
 /* Responsive Styles */
 @media (max-width: 768px) {
   .slider {
-    width: 80%; /* Slider chiếm 90% chiều rộng màn hình trên thiết bị nhỏ */
-    height: 10vh; /* Slider chiếm 30% chiều cao màn hình */
+    width: 80%; /* Slider chiếm 80% chiều rộng màn hình trên thiết bị nhỏ */
+    height: 20vh; /* Slider chiếm 20% chiều cao màn hình trên thiết bị nhỏ */
   }
 
   .slider img {

@@ -11,7 +11,7 @@ const getUsers = async (req, res) => {
   }
 };
 
-// Lấy một người dùng theo ID
+// Lấy người dùng theo ID
 const getUser = async (req, res) => {
   try {
     const user = await userService.getUserById(req.params.id);
@@ -25,7 +25,20 @@ const getUser = async (req, res) => {
   }
 };
 
+// Thêm tài khoản mới
+const addUser = async (req, res) => {
+  console.log('Dữ liệu yêu cầu:', req.body); // Log dữ liệu nhận được
+  try {
+    const newUser = await userService.addUser(req.body);
+    res.status(201).json({ message: 'Tài khoản được tạo thành công!', user: newUser });
+  } catch (error) {
+    console.error('Error adding user:', error.message);
+    res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   getUsers,
   getUser,
+  addUser,
 };

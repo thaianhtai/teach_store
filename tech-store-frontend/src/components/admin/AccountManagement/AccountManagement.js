@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './accountManagement.css';
+import { useAlert } from '../../../components/client/partials/Alert'; // Import Alert hook
 
 const AccountManagement = () => {
   const [accounts, setAccounts] = useState([]);
@@ -8,205 +9,185 @@ const AccountManagement = () => {
   const [newAccount, setNewAccount] = useState({
     username: '',
     email: '',
+    password: '', // Thêm trường password
     role: 'customer',
   });
-  const [showAddForm, setShowAddForm] = useState(false); // state để điều khiển hiển thị form thêm tài khoản
+  const [showAddForm, setShowAddForm] = useState(false);
+
+  const showAlert = useAlert(); // Sử dụng Alert hook
+  const token = localStorage.getItem('token'); // Lấy token từ localStorage
 
   // Lấy danh sách tài khoản từ API
   useEffect(() => {
     const fetchAccounts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/admin/users');
+        const response = await axios.get('http://localhost:5000/api/admin/users', {
+          headers: {
+            Authorization: `Bearer ${token}`, // Thêm token vào header
+          },
+        });
         setAccounts(response.data);
       } catch (error) {
-        console.error('Error fetching accounts:', error);
+        console.error('Lỗi khi lấy danh sách tài khoản:', error);
+        const errorMessage =
+          error.response?.data?.message || 'Không thể tải danh sách tài khoản!';
+        showAlert(errorMessage, 'error');
       }
     };
 
     fetchAccounts();
-  }, []);
+  }, [token]);
 
-  // Lắng nghe thay đổi input khi chỉnh sửa tài khoản
-  const handleInputChange = (e, type) => {
-    const { name, value } = e.target;
-    
-    if (type === 'edit') {
-      setEditingAccount((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    } else {
-      setNewAccount((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
+  // Thêm tài khoản mới
+  const handleAddAccount = async () => {
+    if (!newAccount.username || !newAccount.email || !newAccount.password) {
+      showAlert('Vui lòng điền đầy đủ thông tin!', 'error');
+      return;
     }
-  };
 
-  // Bắt đầu chỉnh sửa tài khoản
-  const handleEdit = (account) => {
-    setEditingAccount(account);
-  };
-
-  // Lưu các thay đổi tài khoản
-  const handleSave = async () => {
     try {
-      const response = await axios.put(
-        `http://localhost:5000/api/admin/users/${editingAccount._id}`,
-        editingAccount
+      const response = await axios.post(
+        'http://localhost:5000/api/admin/users',
+        newAccount,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Thêm token vào header
+          },
+        }
       );
-      const updatedAccounts = accounts.map((account) =>
-        account._id === editingAccount._id ? response.data.user : account
-      );
-      setAccounts(updatedAccounts);
-      setEditingAccount(null);
-      alert('Account updated successfully!');
+      setAccounts([...accounts, response.data.user]);
+      setNewAccount({ username: '', email: '', password: '', role: 'customer' }); // Reset form
+      setShowAddForm(false);
+      showAlert('Thêm tài khoản thành công!', 'success'); // Thông báo thành công
     } catch (error) {
-      console.error('Error saving account:', error);
+      console.error('Lỗi khi thêm tài khoản:', error);
+      const errorMessage =
+        error.response?.data?.message || 'Không thể thêm tài khoản!';
+      showAlert(errorMessage, 'error');
     }
   };
 
   // Xóa tài khoản
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/admin/users/${id}`);
+      await axios.delete(`http://localhost:5000/api/admin/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Thêm token vào header
+        },
+      });
       setAccounts(accounts.filter((account) => account._id !== id));
-      alert('Account deleted successfully!');
+      showAlert('Xóa tài khoản thành công!', 'success'); // Thông báo thành công
     } catch (error) {
-      console.error('Error deleting account:', error);
-    }
-  };
-
-  // Thêm tài khoản mới
-  const handleAddAccount = async () => {
-    try {
-      const response = await axios.post('http://localhost:5000/api/admin/users', newAccount);
-      setAccounts([...accounts, response.data.user]);
-      setNewAccount({ username: '', email: '', role: 'customer' });
-      setShowAddForm(false); // Đóng form thêm sau khi thêm tài khoản
-      alert('Account added successfully!');
-    } catch (error) {
-      console.error('Error adding account:', error);
+      console.error('Lỗi khi xóa tài khoản:', error);
+      const errorMessage =
+        error.response?.data?.message || 'Không thể xóa tài khoản!';
+      showAlert(errorMessage, 'error');
     }
   };
 
   return (
     <div className="account-management">
-      <h1>Account Management</h1>
+      <h1>Quản Lý Tài Khoản</h1>
 
-      {/* Nút thêm tài khoản chỉ hiển thị khi không có form đang mở */}
       {!showAddForm && (
         <button className="add-account-button" onClick={() => setShowAddForm(true)}>
-          Add New Account
+          Thêm Tài Khoản
         </button>
       )}
 
-      {/* Form thêm tài khoản */}
       {showAddForm && (
         <div className="edit-form">
-          <h2>Add New Account</h2>
+          <h2>Thêm Tài Khoản</h2>
           <div className="form-group">
-            <label>Username:</label>
-            <input 
-              type="text" 
-              value={newAccount.username} 
-              onChange={(e) => handleInputChange(e, 'add')} 
-              name="username" 
+            <label>Tên Tài Khoản:</label>
+            <input
+              type="text"
+              value={newAccount.username}
+              onChange={(e) =>
+                setNewAccount({ ...newAccount, username: e.target.value })
+              }
+              name="username"
             />
           </div>
           <div className="form-group">
             <label>Email:</label>
-            <input 
-              type="email" 
-              value={newAccount.email} 
-              onChange={(e) => handleInputChange(e, 'add')} 
-              name="email" 
+            <input
+              type="email"
+              value={newAccount.email}
+              onChange={(e) =>
+                setNewAccount({ ...newAccount, email: e.target.value })
+              }
+              name="email"
             />
           </div>
           <div className="form-group">
-            <label>Role:</label>
-            <select 
-              name="role" 
-              value={newAccount.role} 
-              onChange={(e) => handleInputChange(e, 'add')}
+            <label>Mật Khẩu:</label>
+            <input
+              type="password"
+              value={newAccount.password}
+              onChange={(e) =>
+                setNewAccount({ ...newAccount, password: e.target.value })
+              }
+              name="password"
+            />
+          </div>
+          <div className="form-group">
+            <label>Vai Trò:</label>
+            <select
+              name="role"
+              value={newAccount.role}
+              onChange={(e) =>
+                setNewAccount({ ...newAccount, role: e.target.value })
+              }
             >
-              <option value="admin">Admin</option>
-              <option value="customer">Customer</option>
+              <option value="customer">Khách Hàng</option>
+              <option value="admin">Quản Trị</option>
             </select>
           </div>
           <div className="form-actions">
-            <button className="save-button" onClick={handleAddAccount}>Save</button>
-            <button className="cancel-button" onClick={() => setShowAddForm(false)}>Cancel</button>
+            <button className="save-button" onClick={handleAddAccount}>
+              Lưu
+            </button>
+            <button className="cancel-button" onClick={() => setShowAddForm(false)}>
+              Hủy
+            </button>
           </div>
         </div>
       )}
 
-      {/* Danh sách tài khoản hiện tại */}
-      {!showAddForm && (
-        <table className="account-table">
-          <thead>
-            <tr>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Actions</th>
+      <table className="account-table">
+        <thead>
+          <tr>
+            <th>Tên Tài Khoản</th>
+            <th>Email</th>
+            <th>Vai Trò</th>
+            <th>Hành Động</th>
+          </tr>
+        </thead>
+        <tbody>
+          {accounts.map((account) => (
+            <tr key={account._id}>
+              <td>{account.username}</td>
+              <td>{account.email}</td>
+              <td>{account.role}</td>
+              <td>
+                <button
+                  className="edit-button"
+                  onClick={() => setEditingAccount(account)}
+                >
+                  Sửa
+                </button>
+                <button
+                  className="delete-button"
+                  onClick={() => handleDelete(account._id)}
+                >
+                  Xóa
+                </button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {accounts.map((account) => (
-              <tr key={account._id}>
-                <td>{account.username}</td>
-                <td>{account.email}</td>
-                <td>{account.role}</td>
-                <td>
-                  <button className="edit-button" onClick={() => handleEdit(account)}>Edit</button>
-                  <button className="delete-button" onClick={() => handleDelete(account._id)}>Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-
-      {/* Form chỉnh sửa tài khoản */}
-      {editingAccount && !showAddForm && (
-        <div className="edit-form">
-          <h2>Edit Account</h2>
-          <div className="form-group">
-            <label>Username:</label>
-            <input 
-              type="text" 
-              value={editingAccount.username} 
-              onChange={(e) => handleInputChange(e, 'edit')} 
-              name="username" 
-            />
-          </div>
-          <div className="form-group">
-            <label>Email:</label>
-            <input 
-              type="email" 
-              value={editingAccount.email} 
-              onChange={(e) => handleInputChange(e, 'edit')} 
-              name="email" 
-            />
-          </div>
-          <div className="form-group">
-            <label>Role:</label>
-            <select 
-              name="role" 
-              value={editingAccount.role} 
-              onChange={(e) => handleInputChange(e, 'edit')}
-            >
-              <option value="admin">Admin</option>
-              <option value="customer">Customer</option>
-            </select>
-          </div>
-          <div className="form-actions">
-            <button className="save-button" onClick={handleSave}>Save</button>
-            <button className="cancel-button" onClick={() => setEditingAccount(null)}>Cancel</button>
-          </div>
-        </div>
-      )}
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
