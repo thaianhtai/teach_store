@@ -129,7 +129,7 @@
   transform: scale(1.05); /* Phóng to nhẹ khi hover */
 }
 
-/* Responsive Styles */
+/* Responsive Styles hellllo */
 @media (max-width: 768px) {
   .slider {
     width: 80%; /* Slider chiếm 80% chiều rộng màn hình trên thiết bị nhỏ */
